@@ -1,31 +1,163 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Button Test Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Button test project</h2>
+            <p>
+                Use this app to test button functionality
+            </p>
+        </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <div class="col-md-12">
+            <h2>api_key:</h2>
+            <input type="text" id="api_key" name="api_key" onblur="api_key(this.value);" />
+        </div>
+
+        <div class="col-md-12">
+            <h2>btn_ref:</h2>
+            <p id="pbtn_ref">
+                [undefined]
+            </p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+    @using (Html.BeginForm("CreateOrder", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Create Order</h2>
+                <textarea id="txtOrder" name="txtOrder" cols="400" rows="40" style="max-width:400px;">
+                    
+                </textarea>
+                <input type="submit" id="btnCreateOrder" value="Create" />
+                <input type="hidden" id="createorder_api_key" name="api_key" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("GetOrder", "Home", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Get Order</h2>
+                <label for="txtButtonOrderID">Button Order ID:</label>
+                <input type="text" id="txtButtonOrderID" name="txtButtonOrderID" />
+                <textarea id="ButonOrder" name="txtOrder" cols="400" rows="40" style="max-width:400px;">
+                    @ViewData["ButtonOrder"]
+                </textarea>
+                <input type="submit" id="btnGetOrder" value="Get" />
+                <input type="hidden" id="getorder_api_key" name="api_key" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("UpdateOrder", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Update Order</h2>
+                <label for="txtUpdateButtonOrderID">Button Order ID:</label>
+                <input type="text" id="txtUpdateButtonOrderID" name="txtUpdateButtonOrderID" />
+                <textarea id="txtUpdateOrder" name="txtUpdateOrder" cols="400" rows="40" style="max-width:400px;">
+                    @ViewData["UpdatedOrder"]
+                </textarea>
+                <input type="submit" id="btnUpdateOrder" value="Update" />
+                <input type="hidden" id="updateorder_api_key" name="api_key" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("DeleteOrder", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Delete Order</h2>
+                <label for="txtButtonOrderID">Button Order ID:</label>
+                <input type="text" id="txtButtonOrderID" name="txtButtonOrderID" />
+                <textarea id="ButonOrder" name="txtOrder" cols="400" rows="40" style="max-width:400px;">
+                        @ViewData["DeleteButtonOrder"]
+                    </textarea>
+                <input type="submit" id="btnGetOrder" value="Delete" />
+                <input type="hidden" id="deleteorder_api_key" name="api_key" />
+            </div>
+        </div>
+    }
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous">
+    </script>
+
+    <script>
+        window.ButtonWebConfig = {
+            applicationId: 'app-19610fb9e8670d94'
+        };
+        (function (u, s, e, b, t, n) {
+            u['__bttnio'] = b; u[b] = u[b] || function () { (u[b].q = u[b].q || []).push(arguments) }; t = s.createElement(e); n = s.getElementsByTagName(e)[0]; t.async = 1; t.src = 'https://web.btncdn.com/v1/button.js'; n.parentNode.insertBefore(t, n)
+        })(window, document, 'script', 'bttnio');
+    </script>
+
+    <script>
+        // defaults
+        var default_order = {
+                "total": 50,
+                "currency": "USD",
+                "order_id": "1989",
+                "purchase_date": "2018-06-30T00:00:00Z",
+                "finalization_date": "2020-07-30T19:26:08Z",
+                "btn_ref": "srctok-XXX",
+                "customer": {
+                    "id": "btnwebshopper-1234"
+                            },
+            "line_items": [
+                {
+                    "identifier": "sku-1234",
+                    "amount": 2000,
+                    "quantity": 2,
+                    "description": "Shovels",
+                    "attributes": {
+                        "category": "Home&Garden",
+                        "subcategory": "Tools",
+                        "brand": "Ames",
+                        "upc": "049206633742"
+                    }
+                }, {
+                    "identifier": "sku-4567",
+                    "amount": 3000,
+                    "quantity": 1,
+                    "description": "Rakes",
+                    "attributes": {
+                        "category": "Home&Garden",
+                        "subcategory": "Tools",
+                        "brand": "Ames",
+                        "upc": "049206633745"
+                    }
+                }
+            ]
+        };
+
+        // functions
+        function api_key(key) {
+            $('#createorder_api_key').val(key);
+            $('#getorder_api_key').val(key);
+            $('#updateorder_api_key').val(key);
+            $('#deleteorder_api_key').val(key);
+        }
+
+        $(document).ready(function () {
+
+            // Obtain Attribution Token
+            var btn_ref = bttnio('getReferrerToken');
+
+            // btn_ref
+            $('#pbtn_ref').html(btn_ref);
+
+            // create order
+            if (btn_ref) default_order.btn_ref = btn_ref;
+            $('#txtOrder').html(JSON.stringify(default_order, null, 2));
+
+        });
+    </script>
